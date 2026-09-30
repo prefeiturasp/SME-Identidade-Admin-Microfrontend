@@ -25,7 +25,7 @@ export default function DashboardPage() {
                 title="Painel de controle"
                 description="Visão geral dos realms, sistemas e usuários da plataforma de Identidade."
                 action={
-                    <Button>
+                    <Button className="h-12 w-[296px] max-w-full gap-2 bg-blue-700 text-base font-semibold leading-6 text-white hover:bg-blue-700/90">
                         <Plus className="h-4 w-4" />
                         Novo realm (Provisionar)
                     </Button>
@@ -35,36 +35,36 @@ export default function DashboardPage() {
             <div className="grid gap-4 sm:grid-cols-3">
                 <Card>
                     <CardHeader>
-                        <CardTitle className="text-sm font-normal text-muted-foreground">
+                        <CardTitle className="text-sm font-bold leading-none text-grey-700">
                             Realms ativos
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-3xl font-bold text-primary">
+                        <p className="text-[32px] font-bold leading-none text-action">
                             {dashboardContadores.realmsAtivos}
                         </p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardHeader>
-                        <CardTitle className="text-sm font-normal text-muted-foreground">
+                        <CardTitle className="text-sm font-bold leading-none text-grey-700">
                             Sistemas (Clients)
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-3xl font-bold text-primary">
+                        <p className="text-[32px] font-bold leading-none text-action">
                             {dashboardContadores.sistemasClients}
                         </p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardHeader>
-                        <CardTitle className="text-sm font-normal text-muted-foreground">
+                        <CardTitle className="text-sm font-bold leading-none text-grey-700">
                             Usuários base
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className="text-3xl font-bold text-primary">
+                        <p className="text-[32px] font-bold leading-none text-action">
                             {dashboardContadores.usuariosBase}
                         </p>
                     </CardContent>
@@ -79,9 +79,15 @@ export default function DashboardPage() {
                     <div className="grid gap-4 sm:grid-cols-3">
                         {realmsTopologiaOficial.map((realm) => (
                             <div key={realm.nome} className="rounded-lg border p-4">
-                                <p className="font-semibold">{realm.nome}</p>
-                                <p className="mb-4 text-sm text-muted-foreground">{realm.descricao}</p>
-                                <Button className="w-full">Selecionar</Button>
+                                <p className="text-base font-bold leading-none text-text-title">
+                                    {realm.nome}
+                                </p>
+                                <p className="mb-4 mt-[10px] text-sm font-normal leading-none text-grey-600">
+                                    {realm.descricao}
+                                </p>
+                                <Button className="h-8 w-[324px] max-w-full bg-blue-700 text-sm font-semibold leading-6 text-primary-foreground hover:bg-blue-700/90">
+                                    Selecionar
+                                </Button>
                             </div>
                         ))}
                     </div>
@@ -109,7 +115,10 @@ export default function DashboardPage() {
                                         <Badge variant="warning">{realm.status}</Badge>
                                     </TableCell>
                                     <TableCell className="whitespace-nowrap">
-                                        <Button variant="outline" className="border-primary px-16 text-primary hover:bg-primary/5 hover:text-primary">
+                                        <Button
+                                            variant="outline"
+                                            className="h-8 w-[200px] border-action bg-white text-sm font-semibold leading-6 text-action hover:bg-action/5 hover:text-action"
+                                        >
                                             Selecionar
                                         </Button>
                                     </TableCell>
