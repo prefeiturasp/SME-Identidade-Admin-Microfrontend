@@ -1,6 +1,8 @@
 services:
   admin_mfe_app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.development
     container_name: admin_mfe_app
     image: admin_mfe_front:latest
     ports:
