@@ -13,7 +13,9 @@ import {
 } from "@/components/ui/dialog";
 import type { IdentidadeMock } from "@/mocks/identidades";
 
-export function GestaoPermissoesDialog({ identidade }: { identidade: IdentidadeMock }) {
+export function GestaoPermissoesDialog({
+    identidade,
+}: Readonly<{ identidade: IdentidadeMock }>) {
     const [open, setOpen] = useState(false);
     const iniciais = (identidade.nome || identidade.identidade).slice(0, 2).toUpperCase();
 
