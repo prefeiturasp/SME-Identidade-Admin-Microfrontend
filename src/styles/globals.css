@@ -16,6 +16,21 @@
         --primary: 224 96% 47%;
         --primary-foreground: 210 40% 98%;
 
+        --blue-800: 216.2 94.4% 21%;
+        --text-title: 210 4.3% 9%;
+        --grey-700: 204 3.5% 28%;
+        --text-body: 210 2.2% 18%;
+        --orange-700: 17.9 100% 38%;
+        --orange-50: 18 100% 96.1%;
+        --blue-700: 216.2 93.7% 31.2%;
+        --grey-600: 204 2.6% 37.1%;
+        --grey-500: 205.7 3% 46.1%;
+        --blue-50: 215.3 68% 95.1%;
+        --grey-100: 0 0% 96.5%;
+        --action-permissions: 216.2 94.2% 52.4%;
+        --action-credentials: 157.2 84% 32%;
+        --action-delete: 352.6 100% 42.9%;
+
         --secondary: 136 100% 50%;
         --secondary-foreground: 222.2 47.4% 11.2%;
 

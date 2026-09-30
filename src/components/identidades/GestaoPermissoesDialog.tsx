@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ShieldCheck } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { ShieldCheckIcon } from "@/components/icons/ShieldCheckIcon";
 import {
     Dialog,
     DialogContent,
@@ -23,10 +23,10 @@ export function GestaoPermissoesDialog({
         <Dialog open={open} onOpenChange={setOpen}>
             <button
                 aria-label="Permissões"
-                className="hover:text-primary"
+                className="text-action-permissions hover:text-action-permissions/80"
                 onClick={() => setOpen(true)}
             >
-                <ShieldCheck className="h-4 w-4" />
+                <ShieldCheckIcon className="h-4 w-4" />
             </button>
             <DialogContent>
                 <DialogHeader className="flex-row items-center gap-3 space-y-0">

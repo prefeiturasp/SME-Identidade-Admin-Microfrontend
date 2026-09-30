@@ -28,6 +28,20 @@ module.exports = {
   				DEFAULT: 'hsl(var(--primary))',
   				foreground: 'hsl(var(--primary-foreground))'
   			},
+  			action: 'hsl(var(--blue-800))',
+  			'text-title': 'hsl(var(--text-title))',
+  			'grey-700': 'hsl(var(--grey-700))',
+  			'text-body': 'hsl(var(--text-body))',
+  			'orange-700': 'hsl(var(--orange-700))',
+  			'orange-50': 'hsl(var(--orange-50))',
+  			'blue-700': 'hsl(var(--blue-700))',
+  			'grey-600': 'hsl(var(--grey-600))',
+  			'grey-500': 'hsl(var(--grey-500))',
+  			'blue-50': 'hsl(var(--blue-50))',
+  			'grey-100': 'hsl(var(--grey-100))',
+  			'action-permissions': 'hsl(var(--action-permissions))',
+  			'action-credentials': 'hsl(var(--action-credentials))',
+  			'action-delete': 'hsl(var(--action-delete))',
   			secondary: {
   				DEFAULT: 'hsl(var(--secondary))',
   				foreground: 'hsl(var(--secondary-foreground))'

@@ -1,7 +1,8 @@
-import { Pencil, KeyRound, Trash2 } from "lucide-react";
-
 import { PageHeader } from "@/components/layout/PageHeader";
 import { RealmAtivoChip } from "@/components/layout/RealmAtivoChip";
+import { EditSquareIcon } from "@/components/icons/EditSquareIcon";
+import { KeyRoundIcon } from "@/components/icons/KeyRoundIcon";
+import { TrashIcon } from "@/components/icons/TrashIcon";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -42,33 +43,35 @@ export default function IdentidadesPage() {
                             {identidadesMock.map((identidade) => (
                                 <TableRow key={identidade.identidade}>
                                     <TableCell>
-                                        <p className="font-medium">{identidade.identidade}</p>
+                                        <p className="font-normal">{identidade.identidade}</p>
                                         {identidade.nome && (
-                                            <p className="text-xs text-muted-foreground">{identidade.nome}</p>
+                                            <p className="text-[10px] font-normal leading-none text-grey-500">
+                                                {identidade.nome}
+                                            </p>
                                         )}
                                     </TableCell>
                                     <TableCell>
                                         <div className="flex items-center gap-2">
-                                            <Badge>{identidade.tipo}</Badge>
+                                            <Badge variant="info">{identidade.tipo}</Badge>
                                             <span className="text-xs text-muted-foreground">
                                                 {identidade.idSme}
                                             </span>
                                         </div>
                                     </TableCell>
                                     <TableCell>
-                                        <Badge variant="success">{identidade.estado}</Badge>
+                                        <Badge variant="neutral">{identidade.estado}</Badge>
                                     </TableCell>
                                     <TableCell>
-                                        <div className="flex items-center justify-end gap-3 text-muted-foreground">
-                                            <button aria-label="Editar" className="hover:text-foreground">
-                                                <Pencil className="h-4 w-4" />
+                                        <div className="flex items-center justify-end gap-3">
+                                            <button aria-label="Editar" className="text-grey-500 hover:text-grey-700">
+                                                <EditSquareIcon className="h-5 w-5" />
                                             </button>
                                             <GestaoPermissoesDialog identidade={identidade} />
-                                            <button aria-label="Credenciais" className="hover:text-success">
-                                                <KeyRound className="h-4 w-4" />
+                                            <button aria-label="Credenciais" className="text-action-credentials hover:text-action-credentials/80">
+                                                <KeyRoundIcon className="h-4 w-4" />
                                             </button>
-                                            <button aria-label="Excluir" className="hover:text-destructive">
-                                                <Trash2 className="h-4 w-4" />
+                                            <button aria-label="Excluir" className="text-action-delete hover:text-action-delete/80">
+                                                <TrashIcon className="h-4 w-4" />
                                             </button>
                                         </div>
                                     </TableCell>
