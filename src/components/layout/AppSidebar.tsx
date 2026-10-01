@@ -51,7 +51,15 @@ export function AppSidebar() {
                                         <SidebarMenuButton asChild isActive={isActive} tooltip={item.title}>
                                             <Link href={item.href}>
                                                 <item.icon />
-                                                <span>{item.title}</span>
+                                                <span
+                                                    className={
+                                                        isActive
+                                                            ? "text-base font-bold leading-6 text-action"
+                                                            : "text-base font-normal leading-6 text-text-body"
+                                                    }
+                                                >
+                                                    {item.title}
+                                                </span>
                                             </Link>
                                         </SidebarMenuButton>
                                     </SidebarMenuItem>
