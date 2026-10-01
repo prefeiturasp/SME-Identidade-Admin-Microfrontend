@@ -1,0 +1,12 @@
+services:
+  admin_mfe_app:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    container_name: admin_mfe_app
+    image: admin_mfe_front:latest
+    ports:
+      - 3001:3001
+    volumes:
+      - ./:/app
+      - /app/node_modules
