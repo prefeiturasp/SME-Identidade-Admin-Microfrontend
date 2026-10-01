@@ -54,8 +54,8 @@ export function AppSidebar() {
                                                 <span
                                                     className={
                                                         isActive
-                                                            ? "text-base font-bold leading-6 text-action"
-                                                            : "text-base font-normal leading-6 text-text-body"
+                                                            ? "text-base font-bold leading-6 text-action group-data-[collapsible=icon]:hidden"
+                                                            : "text-base font-normal leading-6 text-text-body group-data-[collapsible=icon]:hidden"
                                                     }
                                                 >
                                                     {item.title}
