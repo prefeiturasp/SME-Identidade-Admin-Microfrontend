@@ -26,7 +26,7 @@ export default function DashboardPage() {
                 description="Visão geral dos realms, sistemas e usuários da plataforma de Identidade."
                 action={
                     <Button className="h-12 w-[296px] max-w-full gap-2 bg-blue-700 text-base font-semibold leading-6 text-white hover:bg-blue-700/90">
-                        <Plus className="h-4 w-4" />
+                        <Plus className="h-3.5 w-3.5 text-white" />
                         Novo realm (Provisionar)
                     </Button>
                 }
