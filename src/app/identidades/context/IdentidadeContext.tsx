@@ -113,7 +113,7 @@ export const IdentidadeProvider = ({ children }: { children: React.ReactNode }) 
         }
 
         const cpfRegex = /^\d{11}$/;
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[^\s@]{1,64}@[^\s@.]{1,255}\.[^\s@.]{2,63}$/;
 
         if (!cpfRegex.test(userData.cpf)) {
             return 'CPF inválido. Certifique-se de que o CPF contém exatamente 11 dígitos numéricos.'
