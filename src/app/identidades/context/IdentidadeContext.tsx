@@ -206,7 +206,17 @@ export const IdentidadeProvider = ({ children }: { children: React.ReactNode }) 
             handleOpenConfirmDelete,
             handleCloseConfirmDelete,
         };
-    }, [dataUserList, isLoadingDataUserList, userDataForm, page, openConfirmDelete]);
+    }, [
+        dataUserList,
+        isLoadingDataUserList,
+        userDataForm,
+        page,
+        openConfirmDelete,
+        handleDeleteUser,
+        handleSubmitUserForm,
+        mutationPost,
+        openModalDataForm
+    ]);
 
     return (
         <IdentidadeContext.Provider value={contextValue}>

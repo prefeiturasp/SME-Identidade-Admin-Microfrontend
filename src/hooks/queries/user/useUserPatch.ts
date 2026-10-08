@@ -13,7 +13,7 @@ export const useUserPatch = ({ handleCloseModalDataForm }: { handleCloseModalDat
         mutationFn: ({ userId, cpf, nome, rf, sobrenome, tipo_usuario, usuario }: UserUpdateRequest & { userId: string }) => {
             return updateUser(userId, { cpf, nome, rf, sobrenome, tipo_usuario, usuario })
         },
-        onSuccess: (_, variables) => {
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: [QUERY_KEY_LIST_USERS] }).then()
             handleCloseModalDataForm()
         },
