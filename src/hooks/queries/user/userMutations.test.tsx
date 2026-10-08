@@ -17,15 +17,18 @@ vi.mock("@/lib/user", () => ({
 
 function wrapper() {
     const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false }, mutations: { retry: false } } });
-    return ({ children }: { children: React.ReactNode }) => (
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    );
+    function QueryClientWrapper({ children }: { children: React.ReactNode }) {
+        return (
+            <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        );
+    }
+    return QueryClientWrapper;
 }
 
 describe("user mutation hooks", () => {
     beforeEach(() => {
         vi.clearAllMocks();
-        vi.spyOn(window, "alert").mockImplementation(() => {});
+        vi.spyOn(window, "alert").mockImplementation(() => { });
     });
 
     it("cria e invalida a lista após sucesso", async () => {
