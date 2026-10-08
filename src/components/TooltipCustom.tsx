@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button"
 import {
     Tooltip,
     TooltipContent,
@@ -11,10 +10,12 @@ interface Props {
     title: string
 }
 
-export function TooltipCustom({ children, side, title }: Props) {
+export function TooltipCustom({ children, side, title }: Readonly<Props>) {
+    const tooltipProps = title ? {} : { open: false };
+
     return (
         <div className="flex flex-wrap gap-2">
-            <Tooltip key={side} {...(!title ? { open: false } : {})}>
+            <Tooltip key={side} {...tooltipProps}>
                 <TooltipTrigger>
                     {children}
                 </TooltipTrigger>

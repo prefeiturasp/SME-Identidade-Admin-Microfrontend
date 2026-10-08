@@ -22,7 +22,7 @@ export function CustomPagination({
     actualPage,
     totalItems,
     onChange,
-}: CustomPaginationProps) {
+}: Readonly<CustomPaginationProps>) {
     const totalPages = Math.ceil(totalItems / rowsPerPage);
 
     if (totalPages <= 1) {

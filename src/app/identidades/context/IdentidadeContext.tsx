@@ -127,7 +127,7 @@ export const IdentidadeProvider = ({ children }: { children: React.ReactNode }) 
     }
 
     const normalizeDataUserForm = (userData: IUserDataForm) => {
-        const cpf = userData.cpf.trim().replace(/\D/g, '')
+        const cpf = userData.cpf.trim().replaceAll(/\D/g, '')
         const rf = cpf.slice(-7);
         return {
             nome: userData.nome.trim(),

@@ -9,9 +9,9 @@ import {
 
 export function ReactQueryProvider({
     children,
-}: {
+}: Readonly<{
     children: React.ReactNode
-}) {
+}>) {
     const [queryClient] = useState(
         () =>
             new QueryClient({
