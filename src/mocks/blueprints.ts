@@ -8,7 +8,7 @@ export interface BlueprintFerramenta {
     id: string;
     nome: string;
     descricao: string;
-    icon: (props: React.SVGProps<SVGSVGElement>) => React.ReactElement;
+    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }
 
 export const blueprintsMock: BlueprintFerramenta[] = [
