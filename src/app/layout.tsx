@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import "@/styles/globals.css";
 import { AppShell } from "@/components/layout/AppShell";
+import { ReactQueryProvider } from "@/providers/ReactQueryProvider"
+
+import "@/styles/globals.css";
 
 export const metadata: Metadata = {
     title: "SME Identidade - Admin",
@@ -15,7 +17,9 @@ export default function RootLayout({
     return (
         <html lang="pt-BR">
             <body>
-                <AppShell>{children}</AppShell>
+                <ReactQueryProvider>
+                    <AppShell>{children}</AppShell>
+                </ReactQueryProvider>
             </body>
         </html>
     );

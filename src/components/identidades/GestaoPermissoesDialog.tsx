@@ -11,13 +11,13 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-import type { IdentidadeMock } from "@/mocks/identidades";
+import { UserData } from "@/lib/user/types";
 
 export function GestaoPermissoesDialog({
     identidade,
-}: Readonly<{ identidade: IdentidadeMock }>) {
+}: Readonly<{ identidade: UserData }>) {
     const [open, setOpen] = useState(false);
-    const iniciais = (identidade.nome || identidade.identidade).slice(0, 2).toUpperCase();
+    const iniciais = (identidade.firstName || identidade.username).slice(0, 2).toUpperCase();
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
@@ -34,9 +34,9 @@ export function GestaoPermissoesDialog({
                         {iniciais}
                     </div>
                     <div>
-                        <DialogTitle>{identidade.identidade}</DialogTitle>
-                        {identidade.nome && (
-                            <p className="text-sm text-muted-foreground">{identidade.nome}</p>
+                        <DialogTitle>{identidade.username}</DialogTitle>
+                        {identidade.firstName && (
+                            <p className="text-sm text-muted-foreground">{identidade.firstName} {identidade.lastName}</p>
                         )}
                     </div>
                 </DialogHeader>

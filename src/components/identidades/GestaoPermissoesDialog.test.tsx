@@ -3,14 +3,19 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
 import { GestaoPermissoesDialog } from "@/components/identidades/GestaoPermissoesDialog";
-import type { IdentidadeMock } from "@/mocks/identidades";
+import type { UserData } from "@/lib/user/types";
 
-const identidade: IdentidadeMock = {
-    identidade: "123456789-12",
-    nome: "João Silva",
-    tipo: "Externo",
-    idSme: "N/A",
-    estado: "Padrão",
+const identidade: UserData = {
+    id: "1",
+    username: "123456789-12",
+    firstName: "João",
+    lastName: "Silva",
+    email: "joao.silva@example.com",
+    enabled: true,
+    emailVerified: true,
+    cpf: "123456789-12",
+    rf: "123456789012",
+    tipo_usuario: "Externo",
 };
 
 describe("GestaoPermissoesDialog", () => {
@@ -32,7 +37,12 @@ describe("GestaoPermissoesDialog", () => {
         const user = userEvent.setup();
         render(
             <GestaoPermissoesDialog
-                identidade={{ ...identidade, nome: "", identidade: "helio.teste" }}
+                identidade={{
+                    ...identidade,
+                    firstName: "",
+                    lastName: "",
+                    username: "helio.teste",
+                }}
             />
         );
 
