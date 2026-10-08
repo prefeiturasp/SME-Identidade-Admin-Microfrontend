@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRightIcon } from "@/components/icons/ArrowRightIcon";
 import { blueprintsMock } from "@/mocks/blueprints";
 
-export function BlueprintsProvisionamento({ realm }: { realm: string }) {
+export function BlueprintsProvisionamento({ realm }: Readonly<{ realm: string }>) {
     const [selecionado, setSelecionado] = useState(blueprintsMock[0].id);
     const ferramenta = blueprintsMock.find((item) => item.id === selecionado)!;
 
