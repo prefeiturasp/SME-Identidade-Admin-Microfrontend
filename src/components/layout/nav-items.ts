@@ -1,4 +1,4 @@
-import { LayoutGrid, Users, type LucideIcon } from "lucide-react";
+import { LayoutGrid, Users, Monitor, Layers, type LucideIcon } from "lucide-react";
 
 export interface NavItem {
     title: string;
@@ -9,4 +9,6 @@ export interface NavItem {
 export const navItems: NavItem[] = [
     { title: "Dashboard", href: "/dashboard", icon: LayoutGrid },
     { title: "Identidades", href: "/identidades", icon: Users },
+    { title: "Sistemas (Clients)", href: "/sistemas", icon: Monitor },
+    { title: "Blueprints", href: "/blueprints", icon: Layers },
 ];

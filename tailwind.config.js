@@ -42,6 +42,13 @@ module.exports = {
   			'action-permissions': 'hsl(var(--action-permissions))',
   			'action-credentials': 'hsl(var(--action-credentials))',
   			'action-delete': 'hsl(var(--action-delete))',
+  			'green-800': 'hsl(var(--green-800))',
+  			'green-50': 'hsl(var(--green-50))',
+  			'grey-300': 'hsl(var(--grey-300))',
+  			'grey-250': 'hsl(var(--grey-250))',
+  			'blue-400': 'hsl(var(--blue-400))',
+  			'grey-400': 'hsl(var(--grey-400))',
+  			'blue-300': 'hsl(var(--blue-300))',
   			secondary: {
   				DEFAULT: 'hsl(var(--secondary))',
   				foreground: 'hsl(var(--secondary-foreground))'
