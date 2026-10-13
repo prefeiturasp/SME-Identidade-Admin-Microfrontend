@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AppShell } from "@/components/layout/AppShell";
 import { ReactQueryProvider } from "@/providers/ReactQueryProvider"
+import { RealmAtivoProvider } from "@/providers/RealmAtivoProvider";
 
 import "@/styles/globals.css";
 
@@ -18,7 +19,9 @@ export default function RootLayout({
         <html lang="pt-BR">
             <body>
                 <ReactQueryProvider>
-                    <AppShell>{children}</AppShell>
+                    <RealmAtivoProvider>
+                        <AppShell>{children}</AppShell>
+                    </RealmAtivoProvider>
                 </ReactQueryProvider>
             </body>
         </html>

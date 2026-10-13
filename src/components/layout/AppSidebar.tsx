@@ -17,11 +17,12 @@ import {
     useSidebar,
 } from "@/components/ui/sidebar";
 import { navItems } from "@/components/layout/nav-items";
-import { mockSession } from "@/lib/auth/mock-session";
+import { useRealmAtivo } from "@/providers/RealmAtivoProvider";
 
 export function AppSidebar() {
     const pathname = usePathname();
     const { toggleSidebar } = useSidebar();
+    const { realmEfetivo } = useRealmAtivo();
 
     return (
         <Sidebar collapsible="icon">
@@ -77,7 +78,7 @@ export function AppSidebar() {
                             Real ativo
                         </p>
                         <p className="truncate text-sm font-semibold">
-                            {mockSession.usuario.realmAtivo}
+                            {realmEfetivo ?? "Padrão"}
                         </p>
                     </div>
                 </div>

@@ -5,7 +5,7 @@ import { BlueprintsProvisionamento } from "@/components/blueprints/BlueprintsPro
 export default function BlueprintsPage() {
     return (
         <div className="flex flex-col gap-6 p-6">
-            <RealmAtivoChip realm="sme-devops" />
+            <RealmAtivoChip />
 
             <PageHeader
                 title="Automação de blueprints"
