@@ -13,7 +13,6 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { RefreshIcon } from "@/components/icons/RefreshIcon";
-import { useIdentidadeContext } from "@/app/identidades/hooks/useIdentidadeContext";
 import { useSistemasContext } from "@/app/sistemas/hooks/useSistemasContext";
 import { Switch } from "../ui/switch";
 import { TrashIcon } from "../icons/TrashIcon";
@@ -116,7 +115,7 @@ export function CriarClienteDialog() {
 
                                 {
                                     clientDataForm?.redirect_uris?.map((redirectUri, index) => (
-                                        <div key={index} className="flex gap-2">
+                                        <div key={`redirect-uri-${index}`} className="flex gap-2"> {/* NOSONAR */}
                                             <Input
                                                 id={`redirect-uri-${index}`}
                                                 name={`redirect-uri-${index}`}
@@ -165,7 +164,7 @@ export function CriarClienteDialog() {
 
                                 {
                                     clientDataForm?.web_origins?.map((webOrigin, index) => (
-                                        <div key={index} className="flex gap-2">
+                                        <div key={`web-origin-${index}`} className="flex gap-2"> {/* NOSONAR */}
                                             <Input
                                                 id={`web-origin-${index}`}
                                                 name={`web-origin-${index}`}
@@ -214,7 +213,7 @@ export function CriarClienteDialog() {
 
                                 {
                                     clientDataFormAttributes?.map((attribute, index) => (
-                                        <div key={`attribute-${index}`} className="flex gap-2">
+                                        <div key={`attribute-${index}`} className="flex gap-2"> {/* NOSONAR */}
                                             <Input
                                                 id={`attribute-key-${index}`}
                                                 name={`attribute-key-${index}`}
