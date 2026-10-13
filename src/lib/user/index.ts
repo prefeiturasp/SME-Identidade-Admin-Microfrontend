@@ -1,4 +1,3 @@
-// Endpoints: UT3yPtJlC1lJL6WBmQq1tDhqgoYLIZCuTisIgRCmcykTos7W
 'use client';
 
 import { adminMsApi } from "@/lib/axios-admin";
