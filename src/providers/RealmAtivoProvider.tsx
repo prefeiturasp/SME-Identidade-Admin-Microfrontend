@@ -26,7 +26,7 @@ const RealmAtivoContext = createContext<RealmAtivoContextType>({
 
 function lerRealmSalvo(): string | null {
     try {
-        return window.localStorage.getItem(CHAVE_REALM_ATIVO);
+        return globalThis.localStorage.getItem(CHAVE_REALM_ATIVO);
     } catch {
         return null;
     }
@@ -35,9 +35,9 @@ function lerRealmSalvo(): string | null {
 function salvarRealm(nome: string | null) {
     try {
         if (nome) {
-            window.localStorage.setItem(CHAVE_REALM_ATIVO, nome);
+            globalThis.localStorage.setItem(CHAVE_REALM_ATIVO, nome);
         } else {
-            window.localStorage.removeItem(CHAVE_REALM_ATIVO);
+            globalThis.localStorage.removeItem(CHAVE_REALM_ATIVO);
         }
     } catch {
         // Sem armazenamento disponível, a escolha vale só até recarregar.

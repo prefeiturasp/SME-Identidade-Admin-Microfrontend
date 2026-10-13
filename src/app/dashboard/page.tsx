@@ -48,6 +48,12 @@ function Contador({ titulo, valor, carregando, descricao }: Readonly<{ titulo: s
     );
 }
 
+function descreverRealm(realmSelecionado: string | null, realmPadrao?: string | null) {
+    if (realmSelecionado) return `Realm: ${realmSelecionado}`;
+    if (realmPadrao) return `Realm: ${realmPadrao} (padrão)`;
+    return "Realm: padrão";
+}
+
 function BadgeDesabilitado({ realm }: Readonly<{ realm: RealmData }>) {
     if (realm.habilitado) return null;
     return <Badge variant="destructive">Desabilitado</Badge>;
@@ -97,9 +103,7 @@ export default function DashboardPage() {
     // Sem escolha explícita, o realm de trabalho é o padrão do Admin-MS.
     const realmEfetivo = realmAtivo ?? realmPadrao;
     const selecaoExplicita = Boolean(realmAtivo) && realmAtivo !== realmPadrao;
-    const descricaoRealm = selecaoExplicita
-        ? `Realm: ${realmAtivo}`
-        : `Realm: ${realmPadrao ? `${realmPadrao} (padrão)` : "padrão"}`;
+    const descricaoRealm = descreverRealm(selecaoExplicita ? realmAtivo : null, realmPadrao);
 
     const realmsOficiais = realms?.filter((realm) => realm.oficial) ?? [];
     const realmsOutros = realms?.filter((realm) => !realm.oficial) ?? [];
