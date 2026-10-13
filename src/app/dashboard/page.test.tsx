@@ -16,7 +16,7 @@ const mocks = vi.hoisted(() => ({
 
 vi.mock("@/hooks/queries/realm/useRealmsList", () => ({ useRealmsList: mocks.useRealmsList }));
 vi.mock("@/hooks/queries/realm/useRealmFinalidades", () => ({ useRealmFinalidades: mocks.useRealmFinalidades }));
-vi.mock("@/hooks/queries/client/useClientsList", () => ({ useClientsList: mocks.useClientsList }));
+vi.mock("@/hooks/queries/client-admin/useClientsList", () => ({ useClientsList: mocks.useClientsList }));
 vi.mock("@/hooks/queries/user/useUsersList", () => ({ useUsersList: mocks.useUsersList }));
 vi.mock("@/providers/RealmAtivoProvider", () => ({
     useRealmAtivo: () => ({

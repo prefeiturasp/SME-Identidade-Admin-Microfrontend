@@ -46,7 +46,8 @@ describe("user mutation hooks", () => {
 
     it("exclui usuário e trata erro", async () => {
         vi.mocked(deleteUser).mockRejectedValue(new Error("falha"));
-        const { result } = renderHook(() => useUserDelete(), { wrapper: wrapper() });
+        const handleCloseConfirmDelete = vi.fn();
+        const { result } = renderHook(() => useUserDelete({ handleCloseConfirmDelete }), { wrapper: wrapper() });
 
         result.current.mutationDelete.mutate({ userId: "u1" });
 

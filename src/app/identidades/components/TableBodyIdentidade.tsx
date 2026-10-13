@@ -14,9 +14,22 @@ import { TrashIcon } from "@/components/icons/TrashIcon";
 
 import { useIdentidadeContext } from "../hooks/useIdentidadeContext";
 import { TooltipCustom } from "@/components/TooltipCustom";
+import { SpinnerCustom } from "@/components/SpinnerCustom";
 
 export function TableBodyIdentidade() {
-    const { dataUserList, handleOpenModalDataForm, handleOpenConfirmDelete } = useIdentidadeContext();
+    const { dataUserList, isLoadingDataUserList, handleOpenModalDataForm, handleOpenConfirmDelete } = useIdentidadeContext();
+
+    if (isLoadingDataUserList) {
+        return (
+            <TableBody>
+                <TableRow>
+                    <TableCell colSpan={4}>
+                        <SpinnerCustom />
+                    </TableCell>
+                </TableRow>
+            </TableBody>
+        );
+    }
 
     return (
         <TableBody>
@@ -43,9 +56,8 @@ export function TableBodyIdentidade() {
                     </TableCell>
                     <TableCell>
                         <div className="flex items-center justify-end gap-3">
-                            <TooltipCustom side="top" title={identidade.enabled ? "Editar" : ""}>
+                            <TooltipCustom side="top" title="Alterar">
                                 <button
-                                    disabled={!identidade.enabled}
                                     aria-label="Editar"
                                     className="text-grey-500 hover:text-grey-700 disabled:text-zinc-300"
                                     onClick={() => handleOpenModalDataForm({

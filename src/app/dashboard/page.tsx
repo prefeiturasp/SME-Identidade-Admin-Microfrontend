@@ -17,7 +17,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { useClientsList } from "@/hooks/queries/client/useClientsList";
+import { useClientsList } from "@/hooks/queries/client-admin/useClientsList";
 import { useRealmFinalidades } from "@/hooks/queries/realm/useRealmFinalidades";
 import { useRealmsList } from "@/hooks/queries/realm/useRealmsList";
 import { useUsersList } from "@/hooks/queries/user/useUsersList";

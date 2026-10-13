@@ -28,9 +28,9 @@ describe("ConfirmarExclusaoDialog", () => {
         render(<ConfirmarExclusaoDialog />);
 
         expect(screen.getByRole("dialog")).toBeInTheDocument();
-        expect(screen.getByRole("heading", { name: "Confirmar exclusão" })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: "Confirmar desativação" })).toBeInTheDocument();
         expect(
-            screen.getByText("Tem certeza que deseja excluir esta identidade?")
+            screen.getByText("Tem certeza que deseja desativar esta identidade?")
         ).toBeInTheDocument();
         expect(screen.getByRole("button", { name: "Cancelar" })).toBeInTheDocument();
         expect(screen.getByRole("button", { name: "Confirmar" })).toBeInTheDocument();
@@ -42,7 +42,7 @@ describe("ConfirmarExclusaoDialog", () => {
         render(<ConfirmarExclusaoDialog />);
 
         expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-        expect(screen.queryByText("Confirmar exclusão")).not.toBeInTheDocument();
+        expect(screen.queryByText("Confirmar desativação")).not.toBeInTheDocument();
     });
 
     it("chama o fechamento ao cancelar", async () => {

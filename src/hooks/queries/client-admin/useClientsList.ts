@@ -3,13 +3,13 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { getClients } from '@/lib/client'
-import type { ClientData } from '@/lib/client/types'
+import type { TClientListResponse } from '@/lib/client/types'
 
 export const QUERY_KEY_LIST_CLIENTS = 'list-clients'
 
 export function useClientsList() {
-    return useQuery<ClientData[]>({
+    return useQuery<TClientListResponse>({
         queryKey: [QUERY_KEY_LIST_CLIENTS],
-        queryFn: () => getClients(),
+        queryFn: getClients,
     })
 }
