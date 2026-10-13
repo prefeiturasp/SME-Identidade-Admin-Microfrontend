@@ -3,16 +3,16 @@
 import axios from "axios";
 
 declare global {
-    interface Window {
-        __ADMIN_CONFIG__?: {
-            NEXT_PUBLIC_ADMIN_MS_URL?: string;
-            NEXT_PUBLIC_ADMIN_CLIENT_ID?: string;
-            NEXT_PUBLIC_ADMIN_CLIENT_SECRET?: string;
-        };
-    }
+    var __ADMIN_CONFIG__:
+        | {
+              NEXT_PUBLIC_ADMIN_MS_URL?: string;
+              NEXT_PUBLIC_ADMIN_CLIENT_ID?: string;
+              NEXT_PUBLIC_ADMIN_CLIENT_SECRET?: string;
+          }
+        | undefined;
 }
 
-const adminConfig = typeof window === "undefined" ? undefined : window.__ADMIN_CONFIG__;
+const adminConfig = globalThis.__ADMIN_CONFIG__;
 
 export const adminMsApi = axios.create({
     baseURL: adminConfig?.NEXT_PUBLIC_ADMIN_MS_URL ?? process.env.NEXT_PUBLIC_ADMIN_MS_URL,
