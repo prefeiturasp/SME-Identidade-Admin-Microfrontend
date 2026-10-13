@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { AppShell } from "@/components/layout/AppShell";
 import { ReactQueryProvider } from "@/providers/ReactQueryProvider"
 
@@ -17,6 +18,7 @@ export default function RootLayout({
     return (
         <html lang="pt-BR">
             <body>
+                <Script src="/admin/env.js" strategy="beforeInteractive" />
                 <ReactQueryProvider>
                     <AppShell>{children}</AppShell>
                 </ReactQueryProvider>
