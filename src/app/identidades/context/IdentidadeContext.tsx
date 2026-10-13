@@ -95,7 +95,7 @@ export const IdentidadeProvider = ({ children }: { children: React.ReactNode }) 
     const { mutationPost } = useUserCreate();
     const { mutationPatch } = useUserPatch({ handleCloseModalDataForm });
     const { mutationEmailPatch } = useUserEmailPatch({ handleCloseModalDataForm });
-    const { mutationDelete } = useUserDelete();
+    const { mutationDelete } = useUserDelete({ handleCloseConfirmDelete });
 
     const validateUserDataForm = (userData: IUserDataForm) => {
         for (const key in userData) {

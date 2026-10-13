@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteUser } from "@/lib/user"
 import { QUERY_KEY_LIST_USERS } from "./useUsersList";
 
-export const useUserDelete = () => {
+export const useUserDelete = ({ handleCloseConfirmDelete }: { handleCloseConfirmDelete: () => void }) => {
 
     const queryClient = useQueryClient()
 
@@ -14,6 +14,8 @@ export const useUserDelete = () => {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: [QUERY_KEY_LIST_USERS] }).then()
+            alert('Usuário desabilitado com sucesso')
+            handleCloseConfirmDelete()
         },
         onError: () => {
             alert('Ocorreu um erro inesperado')
