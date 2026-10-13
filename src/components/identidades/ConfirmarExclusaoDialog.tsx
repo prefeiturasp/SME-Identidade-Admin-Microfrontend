@@ -21,10 +21,10 @@ export function ConfirmarExclusaoDialog() {
         <Dialog open={openConfirmDelete} onOpenChange={handleCloseConfirmDelete}>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle className="font-bold">Confirmar exclusão</DialogTitle>
+                    <DialogTitle className="font-bold">Confirmar desativação</DialogTitle>
                 </DialogHeader>
                 <div className="grid grid-cols-1 gap-4">
-                    <h3>Tem certeza que deseja excluir esta identidade?</h3>
+                    <h3>Tem certeza que deseja desativar esta identidade?</h3>
                 </div>
                 <DialogFooter>
                     <Button variant="outline" onClick={handleCloseConfirmDelete}>

@@ -4,7 +4,11 @@ import { CustomPagination } from "@/components/CustomPagination"
 import { useIdentidadeContext } from "../hooks/useIdentidadeContext";
 
 export function PaginationIdentidade() {
-    const { dataUserList, setPage } = useIdentidadeContext();
+    const { dataUserList, isLoadingDataUserList, setPage } = useIdentidadeContext();
+
+    if (isLoadingDataUserList) {
+        return null;
+    }
 
     return (
         <div className="flex items-center justify-between px-4 py-3 sm:px-6">
