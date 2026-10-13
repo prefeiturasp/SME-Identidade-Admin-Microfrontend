@@ -17,7 +17,7 @@ export default function IdentidadesPage() {
     return (
         <IdentidadeProvider>
             <div className="flex flex-col gap-6 p-6">
-                <RealmAtivoChip realm="Todos" />
+                <RealmAtivoChip />
 
                 <PageHeader
                     title="Gestão de identidades"

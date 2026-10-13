@@ -31,9 +31,9 @@ describe("AppSidebar", () => {
         expect(dashboardLink).toHaveAttribute("data-active", "true");
     });
 
-    it("exibe o realm ativo mockado no rodapé", () => {
+    it("exibe o realm padrão no rodapé quando nenhum foi selecionado", () => {
         renderSidebar();
 
-        expect(screen.getByText("sme-devops")).toBeInTheDocument();
+        expect(screen.getByText("Padrão")).toBeInTheDocument();
     });
 });
