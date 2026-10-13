@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { AppShell } from "@/components/layout/AppShell";
 import { ReactQueryProvider } from "@/providers/ReactQueryProvider"
 import { RealmAtivoProvider } from "@/providers/RealmAtivoProvider";
@@ -18,6 +19,7 @@ export default function RootLayout({
     return (
         <html lang="pt-BR">
             <body>
+                <Script src="/admin/env.js" strategy="beforeInteractive" />
                 <ReactQueryProvider>
                     <RealmAtivoProvider>
                         <AppShell>{children}</AppShell>

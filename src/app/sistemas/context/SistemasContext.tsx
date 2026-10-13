@@ -228,6 +228,7 @@ export const SistemasProvider = ({ children }: { children: React.ReactNode }) =>
         openModalDataForm,
         clientDataFormAttributes,
         isLoadingClientRotate,
+        detailRotatedSecret,
     ]);
 
     return (
