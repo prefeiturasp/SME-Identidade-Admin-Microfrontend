@@ -1,16 +1,16 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { createClient, disableClient, rotateClientSecret, updateClient } from "@/lib/client";
+import { createClient, disableClient, getClients, rotateClientSecret, updateClient } from "@/lib/client";
 import { useClientCreate } from "./useClientCreate";
 import { useClientDelete } from "./useClientDelete";
 import { useClientPatch } from "./useClientPatch";
 import { useClientRotacionar } from "./useClientRotacionar";
+import { QUERY_KEY_LIST_CLIENTS, useClientsList } from "./useClientsList";
 
-vi.mock("@/lib/client", () => ({ createClient: vi.fn(), disableClient: vi.fn(), rotateClientSecret: vi.fn(), updateClient: vi.fn() }));
+vi.mock("@/lib/client", () => ({ createClient: vi.fn(), disableClient: vi.fn(), getClients: vi.fn(), rotateClientSecret: vi.fn(), updateClient: vi.fn() }));
 
-function wrapper() {
-  const client = new QueryClient({ defaultOptions: { queries: { retry: false }, mutations: { retry: false } } });
+function wrapper(client = new QueryClient({ defaultOptions: { queries: { retry: false }, mutations: { retry: false } } })) {
   return function Wrapper({ children }: { children: React.ReactNode }) {
     return <QueryClientProvider client={client}>{children}</QueryClientProvider>;
   };
@@ -66,5 +66,33 @@ describe("client mutation hooks", () => {
     result.current.mutationPost.mutate({} as never);
     await waitFor(() => expect(result.current.mutationPost.isError).toBe(true));
     expect(window.alert).toHaveBeenCalledWith("Ocorreu um erro inesperado");
+  });
+});
+
+describe("useClientsList", () => {
+  beforeEach(() => { vi.clearAllMocks(); });
+
+  it("busca clientes e retorna os dados da lista", async () => {
+    const clients = [{ id: "c1", nome: "Portal" }];
+    const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    vi.mocked(getClients).mockResolvedValue(clients as never);
+
+    const { result } = renderHook(() => useClientsList(), { wrapper: wrapper(queryClient) });
+
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+    expect(getClients).toHaveBeenCalledOnce();
+    expect(result.current.data).toEqual(clients);
+    expect(queryClient.getQueryCache().find({ queryKey: [QUERY_KEY_LIST_CLIENTS] })).toBeDefined();
+  });
+
+  it("expõe o erro quando a busca de clientes falha", async () => {
+    const error = new Error("falha ao buscar clientes");
+    vi.mocked(getClients).mockRejectedValue(error);
+
+    const { result } = renderHook(() => useClientsList(), { wrapper: wrapper() });
+
+    await waitFor(() => expect(result.current.isError).toBe(true));
+    expect(getClients).toHaveBeenCalledOnce();
+    expect(result.current.error).toBe(error);
   });
 });
