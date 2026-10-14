@@ -5,7 +5,7 @@ import { createUser } from "@/lib/user"
 import { UserCreateRequest } from "@/lib/user/types";
 import { QUERY_KEY_LIST_USERS } from "./useUsersList";
 
-export const useUserCreate = () => {
+export const useUserCreate = ({ handleCloseModalDataForm }: { handleCloseModalDataForm: () => void }) => {
 
     const queryClient = useQueryClient()
 
@@ -15,6 +15,7 @@ export const useUserCreate = () => {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: [QUERY_KEY_LIST_USERS] }).then()
+            handleCloseModalDataForm()
         },
         onError: () => {
             alert('Ocorreu um erro inesperado')

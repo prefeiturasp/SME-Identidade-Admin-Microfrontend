@@ -18,7 +18,7 @@ export default function RootLayout({
     return (
         <html lang="pt-BR">
             <body>
-                <Script src="/admin/env.js" strategy="beforeInteractive" />
+                <Script src="/admin/runtime-env.js" strategy="beforeInteractive" />
                 <ReactQueryProvider>
                     <AppShell>{children}</AppShell>
                 </ReactQueryProvider>
