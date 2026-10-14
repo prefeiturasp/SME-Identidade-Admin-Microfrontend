@@ -184,6 +184,7 @@ export const SistemasProvider = ({ children }: { children: React.ReactNode }) =>
         return dataClientsList.slice(startIndex, endIndex);
     }, [dataClientsList, page]);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const contextValue = useMemo(() => {
         return {
             dataClientsList,
