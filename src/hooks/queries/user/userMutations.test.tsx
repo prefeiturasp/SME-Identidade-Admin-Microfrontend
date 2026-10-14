@@ -33,7 +33,8 @@ describe("user mutation hooks", () => {
 
     it("cria e invalida a lista após sucesso", async () => {
         vi.mocked(createUser).mockResolvedValue({ id: "u1" });
-        const { result } = renderHook(() => useUserCreate(), { wrapper: wrapper() });
+        const handleCloseModalDataForm = vi.fn();
+        const { result } = renderHook(() => useUserCreate({ handleCloseModalDataForm }), { wrapper: wrapper() });
 
         result.current.mutationPost.mutate({
             usuario: "123", nome: "Ana", sobrenome: "Lima", email: "ana@example.com",
