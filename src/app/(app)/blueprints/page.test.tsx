@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import BlueprintsPage from "@/app/blueprints/page";
+import BlueprintsPage from "@/app/(app)/blueprints/page";
 
 describe("BlueprintsPage", () => {
     it("renderiza título e ferramentas mockadas", () => {

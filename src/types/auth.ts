@@ -1,20 +1,15 @@
-export interface SessaoResumo {
-    sessaoId: string;
+export interface UsuarioLogado {
+    nome: string;
     login: string;
-    sistemas: { sistemaId: string; sistemaNome: string }[];
+    email: string;
+    rf: string;
+}
+
+export interface ResultadoLogin {
+    usuario: UsuarioLogado;
+    roles: string[];
+    sessaoId: string;
     expiraEm: string;
 }
 
-export interface Usuario {
-    nome: string;
-    email: string;
-    cpf: string;
-    rf: string;
-    roles: string[];
-    realmAtivo: string;
-}
-
-export interface Sessao {
-    usuario: Usuario;
-    sessao: SessaoResumo;
-}
+export type SituacaoSessao = "valida" | "encerrada";

@@ -23,7 +23,6 @@ export default defineConfig({
       exclude: [
         '**/.next/**',
         'src/components/ui/**',
-        'src/app/api/*',
         '*/types/*',
         'next.config.mjs',
         'tailwind.config.js',

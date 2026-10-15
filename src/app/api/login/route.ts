@@ -1,22 +1,68 @@
 import { NextRequest, NextResponse } from "next/server";
-import { login } from "@/lib/auth";
+
+import {
+    CredenciaisInvalidasError,
+    encerrarSessao,
+    login,
+    temAcessoAdmin,
+} from "@/lib/auth";
+import { assinarSessao, NOME_COOKIE_SESSAO, opcoesCookie } from "@/lib/auth/sessao";
+
+const DURACAO_PADRAO_SEGUNDOS = 8 * 60 * 60;
+
+function erro(mensagem: string, status: number) {
+    return NextResponse.json({ message: mensagem }, { status });
+}
+
+function expiracaoEmSegundos(expiraEm: string): number {
+    const instante = new Date(expiraEm).getTime();
+    if (Number.isFinite(instante)) return Math.floor(instante / 1000);
+    return Math.floor(Date.now() / 1000) + DURACAO_PADRAO_SEGUNDOS;
+}
 
 /**
- * Proxy server-side de login: recebe usuário/senha do formulário (ainda não
- * implementado na UI) e repassa ao SSO-Microsservico a partir do servidor,
- * mantendo a API Key fora do browser. O cookie de sessão do Next.js será
- * adicionado quando a tela de login real for construída.
+ * Autentica no SSO-MS pelo servidor, confere a role de acesso ao Admin e
+ * grava o cookie de sessão assinado.
  */
 export async function POST(request: NextRequest) {
-    const { login: usuario, senha } = await request.json();
-
+    let corpo: unknown;
     try {
-        const sessao = await login({ login: usuario, senha });
-        return NextResponse.json(sessao, { status: 200 });
+        corpo = await request.json();
     } catch {
-        return NextResponse.json(
-            { message: "Login ou senha inválidos." },
-            { status: 401 }
-        );
+        return erro("Informe login e senha.", 400);
     }
+
+    const { login: usuario, senha } = (corpo ?? {}) as Record<string, unknown>;
+    if (typeof usuario !== "string" || !usuario.trim() || typeof senha !== "string" || !senha) {
+        return erro("Informe login e senha.", 400);
+    }
+
+    let resultado;
+    try {
+        resultado = await login({ login: usuario.trim(), senha });
+    } catch (falha) {
+        if (falha instanceof CredenciaisInvalidasError) return erro(falha.message, 401);
+        return erro("Serviço de autenticação indisponível.", 503);
+    }
+
+    if (!temAcessoAdmin(resultado.roles)) {
+        // A sessão criada no SSO-MS não será usada; encerrá-la evita deixá-la ativa.
+        await encerrarSessao(resultado.sessaoId);
+        return erro("Você não tem acesso ao Admin de Identidade.", 403);
+    }
+
+    const exp = expiracaoEmSegundos(resultado.expiraEm);
+    let valorCookie;
+    try {
+        valorCookie = assinarSessao({ sid: resultado.sessaoId, ...resultado.usuario, exp });
+    } catch {
+        await encerrarSessao(resultado.sessaoId);
+        return erro("Sessão do Admin não configurada.", 500);
+    }
+
+    const resposta = NextResponse.json({
+        usuario: { nome: resultado.usuario.nome, login: resultado.usuario.login },
+    });
+    resposta.cookies.set(NOME_COOKIE_SESSAO, valorCookie, opcoesCookie(exp));
+    return resposta;
 }

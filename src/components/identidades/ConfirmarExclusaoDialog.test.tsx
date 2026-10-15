@@ -10,7 +10,7 @@ const contextMock = vi.hoisted(() => ({
     handleDeleteUser: vi.fn(),
 }));
 
-vi.mock("@/app/identidades/hooks/useIdentidadeContext", () => ({
+vi.mock("@/app/(app)/identidades/hooks/useIdentidadeContext", () => ({
     useIdentidadeContext: () => contextMock,
 }));
 
