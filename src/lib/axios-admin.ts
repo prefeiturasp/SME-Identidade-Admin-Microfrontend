@@ -9,11 +9,11 @@ type AdminConfig = {
 }
 
 const getAdminConfig = (): AdminConfig | undefined => {
-    if (typeof window === "undefined") {
+    if (typeof globalThis.window === "undefined") {
         return undefined;
     }
 
-    return (window as Window & { __ADMIN_CONFIG__?: AdminConfig }).__ADMIN_CONFIG__;
+    return (globalThis.window as Window & { __ADMIN_CONFIG__?: AdminConfig }).__ADMIN_CONFIG__;
 };
 
 export const adminMsApi = axios.create();
