@@ -23,7 +23,7 @@ const contextMock = vi.hoisted(() => ({
     }),
 }));
 
-vi.mock("@/app/identidades/hooks/useIdentidadeContext", () => ({
+vi.mock("@/app/(app)/identidades/hooks/useIdentidadeContext", () => ({
     useIdentidadeContext: () => contextMock,
 }));
 

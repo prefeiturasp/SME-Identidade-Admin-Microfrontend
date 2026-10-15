@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import IdentidadesPage from "@/app/identidades/page";
+import IdentidadesPage from "@/app/(app)/identidades/page";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const contextMock = vi.hoisted(() => ({
@@ -23,7 +23,7 @@ const contextMock = vi.hoisted(() => ({
     }),
 }));
 
-vi.mock("@/app/identidades/hooks/useIdentidadeContext", () => ({
+vi.mock("@/app/(app)/identidades/hooks/useIdentidadeContext", () => ({
     useIdentidadeContext: () => contextMock,
 }));
 

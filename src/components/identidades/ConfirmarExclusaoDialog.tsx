@@ -8,7 +8,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-import { useIdentidadeContext } from "@/app/identidades/hooks/useIdentidadeContext";
+import { useIdentidadeContext } from "@/app/(app)/identidades/hooks/useIdentidadeContext";
 
 export function ConfirmarExclusaoDialog() {
     const {

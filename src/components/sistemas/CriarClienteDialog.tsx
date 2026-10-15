@@ -13,7 +13,7 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { RefreshIcon } from "@/components/icons/RefreshIcon";
-import { useSistemasContext } from "@/app/sistemas/hooks/useSistemasContext";
+import { useSistemasContext } from "@/app/(app)/sistemas/hooks/useSistemasContext";
 import { Switch } from "../ui/switch";
 import { TrashIcon } from "../icons/TrashIcon";
 import { Separator } from "../ui/separator";

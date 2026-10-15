@@ -8,7 +8,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-import { useSistemasContext } from "@/app/sistemas/hooks/useSistemasContext";
+import { useSistemasContext } from "@/app/(app)/sistemas/hooks/useSistemasContext";
 import { SpinnerCustom } from "../SpinnerCustom";
 import { Separator } from "../ui/separator";
 

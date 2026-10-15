@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
-import SistemasPage from "@/app/sistemas/page";
+import SistemasPage from "@/app/(app)/sistemas/page";
 
 const clients = vi.hoisted(() => [
     {
