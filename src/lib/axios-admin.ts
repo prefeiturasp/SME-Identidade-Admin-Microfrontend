@@ -8,16 +8,36 @@ type AdminConfig = {
     NEXT_PUBLIC_ADMIN_CLIENT_SECRET?: string;
 }
 
-const adminConfig = (globalThis as typeof globalThis & {
-    __ADMIN_CONFIG__?: AdminConfig;
-}).__ADMIN_CONFIG__;
-
-export const adminMsApi = axios.create({
-    baseURL: adminConfig?.NEXT_PUBLIC_ADMIN_MS_URL ?? process.env.NEXT_PUBLIC_ADMIN_MS_URL,
-    headers: {
-        'X-Client-Id': adminConfig?.NEXT_PUBLIC_ADMIN_CLIENT_ID ?? process.env.NEXT_PUBLIC_ADMIN_CLIENT_ID ?? '',
-        'X-Client-Secret': adminConfig?.NEXT_PUBLIC_ADMIN_CLIENT_SECRET ?? process.env.NEXT_PUBLIC_ADMIN_CLIENT_SECRET ?? '',
+const getAdminConfig = (): AdminConfig | undefined => {
+    if (globalThis.window === undefined) {
+        return undefined;
     }
+
+    return (globalThis.window as Window & { __ADMIN_CONFIG__?: AdminConfig }).__ADMIN_CONFIG__;
+};
+
+export const adminMsApi = axios.create();
+
+adminMsApi.interceptors.request.use((config) => {
+    const adminConfig = getAdminConfig();
+
+    config.baseURL =
+        adminConfig?.NEXT_PUBLIC_ADMIN_MS_URL ??
+        process.env.NEXT_PUBLIC_ADMIN_MS_URL;
+    config.headers.set(
+        "X-Client-Id",
+        adminConfig?.NEXT_PUBLIC_ADMIN_CLIENT_ID ??
+        process.env.NEXT_PUBLIC_ADMIN_CLIENT_ID ??
+        "",
+    );
+    config.headers.set(
+        "X-Client-Secret",
+        adminConfig?.NEXT_PUBLIC_ADMIN_CLIENT_SECRET ??
+        process.env.NEXT_PUBLIC_ADMIN_CLIENT_SECRET ??
+        "",
+    );
+
+    return config;
 });
 
 // Sem realm definido, o Admin-MS opera no realm configurado nele.

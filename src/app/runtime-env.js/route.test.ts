@@ -17,13 +17,14 @@ describe("runtime environment route", () => {
 
         expect(response.status).toBe(200);
         expect(response.headers.get("cache-control")).toBe(
-            "no-store, no-cache, must-revalidate, proxy-revalidate",
+            "private, no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0",
         );
         expect(response.headers.get("content-type")).toBe(
             "application/javascript; charset=utf-8",
         );
         expect(response.headers.get("expires")).toBe("0");
         expect(response.headers.get("pragma")).toBe("no-cache");
+        expect(response.headers.get("vary")).toBe("*");
         expect(await response.text()).toBe(
             'globalThis.__ADMIN_CONFIG__ = {"NEXT_PUBLIC_ADMIN_MS_URL":"https://admin.example.com","NEXT_PUBLIC_ADMIN_CLIENT_ID":"client-id","NEXT_PUBLIC_ADMIN_CLIENT_SECRET":"client-secret"};',
         );

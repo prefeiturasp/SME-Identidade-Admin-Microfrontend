@@ -11,10 +11,11 @@ export function GET() {
 
     return new Response(`globalThis.__ADMIN_CONFIG__ = ${JSON.stringify(config)};`, {
         headers: {
-            "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+            "Cache-Control": "private, no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0",
             "Content-Type": "application/javascript; charset=utf-8",
             Expires: "0",
             Pragma: "no-cache",
+            Vary: "*",
         },
     });
 }
