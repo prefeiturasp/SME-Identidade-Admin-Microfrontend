@@ -20,8 +20,8 @@ describe("CustomPagination", () => {
 
         fireEvent.click(screen.getByRole("link", { name: "1" }));
         fireEvent.click(screen.getByRole("link", { name: "3" }));
-        fireEvent.click(screen.getByRole("link", { name: "Go to next page" }));
-        fireEvent.click(screen.getByRole("link", { name: "Go to previous page" }));
+        fireEvent.click(screen.getByRole("link", { name: "Ir para próxima página" }));
+        fireEvent.click(screen.getByRole("link", { name: "Ir para página anterior" }));
 
         expect(onChange.mock.calls.map(([page]) => page)).toEqual([1, 3, 3, 1]);
     });
@@ -32,11 +32,11 @@ describe("CustomPagination", () => {
             <CustomPagination rowsPerPage={10} actualPage={500} totalItems={10000} onChange={onChange} />,
         );
 
-        expect(screen.getAllByText("More pages")).toHaveLength(2);
+        expect(screen.getAllByText("Mais páginas")).toHaveLength(2);
         expect(screen.getByRole("link", { name: "1000" })).toHaveClass("w-fit", "p-1");
 
         fireEvent.click(screen.getByRole("link", { name: "1000" }));
-        fireEvent.click(screen.getByRole("link", { name: "Go to next page" }));
+        fireEvent.click(screen.getByRole("link", { name: "Ir para próxima página" }));
 
         expect(onChange).toHaveBeenNthCalledWith(1, 1000);
         expect(onChange).toHaveBeenNthCalledWith(2, 501);
