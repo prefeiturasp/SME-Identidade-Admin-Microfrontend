@@ -82,9 +82,9 @@ export function LoginForm({ basePath, destino, sessaoExpirada = false, urlEsquec
 
             <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
                 {sessaoExpirada && !erro && (
-                    <p role="status" className="rounded-md bg-muted px-3 py-2 text-sm">
+                    <output className="block rounded-md bg-muted px-3 py-2 text-sm">
                         Sua sessão expirou. Entre novamente.
-                    </p>
+                    </output>
                 )}
                 {erro && (
                     <p role="alert" className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">

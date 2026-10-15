@@ -40,8 +40,8 @@ export async function POST(request: NextRequest) {
     let resultado;
     try {
         resultado = await login({ login: usuario.trim(), senha });
-    } catch (falha) {
-        if (falha instanceof CredenciaisInvalidasError) return erro(falha.message, 401);
+    } catch (error_) {
+        if (error_ instanceof CredenciaisInvalidasError) return erro(error_.message, 401);
         return erro("Serviço de autenticação indisponível.", 503);
     }
 

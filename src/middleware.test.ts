@@ -35,6 +35,6 @@ describe("middleware", () => {
 
     it("não intercepta rotas de API nem arquivos estáticos", () => {
         expect(config.matcher[0]).toContain("api");
-        expect(config.matcher[0]).toContain(".*\\..*");
+        expect(config.matcher[0]).toContain(".*[.].*");
     });
 });

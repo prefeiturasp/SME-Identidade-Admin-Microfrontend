@@ -30,8 +30,8 @@ export async function login({ login, senha }: LoginPayload): Promise<ResultadoLo
     let data;
     try {
         ({ data } = await ssoMsApi.post(`${PREFIXO_SSO}/login/`, { login, senha }));
-    } catch (erro) {
-        if (statusDoErro(erro) === 401) {
+    } catch (error_) {
+        if (statusDoErro(error_) === 401) {
             throw new CredenciaisInvalidasError("Login ou senha inválidos.");
         }
         throw new ServicoIndisponivelError("Serviço de autenticação indisponível.");
@@ -62,8 +62,8 @@ export async function renovarSessao(sessaoId: string): Promise<SituacaoSessao> {
     try {
         await ssoMsApi.post(`${PREFIXO_SSO}/sessoes/${encodeURIComponent(sessaoId)}/renovar/`);
         return "valida";
-    } catch (erro) {
-        const status = statusDoErro(erro);
+    } catch (error_) {
+        const status = statusDoErro(error_);
         if (status === 404 || status === 409) return "encerrada";
         throw new ServicoIndisponivelError("Serviço de autenticação indisponível.");
     }
