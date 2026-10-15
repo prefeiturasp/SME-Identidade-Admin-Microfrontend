@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     description: "Administração de clients, roles e grupos da plataforma de Identidade.",
 };
 
+const basePath = process.env.NEXT_BASE_PATH ?? "/admin";
+const runtimeEnvPath = `${basePath === "/" ? "" : basePath}/runtime-env.js`;
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -18,7 +21,7 @@ export default function RootLayout({
     return (
         <html lang="pt-BR">
             <body>
-                <Script src="/admin/runtime-env.js" strategy="beforeInteractive" />
+                <Script src={runtimeEnvPath} strategy="beforeInteractive" />
                 <ReactQueryProvider>
                     <AppShell>{children}</AppShell>
                 </ReactQueryProvider>
