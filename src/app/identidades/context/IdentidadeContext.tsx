@@ -92,7 +92,7 @@ export const IdentidadeProvider = ({ children }: { children: React.ReactNode }) 
     }
 
     const { data: dataUserList, isFetching: isLoadingDataUserList } = useUsersList({ page, pageSize: PAGE_SIZE });
-    const { mutationPost } = useUserCreate();
+    const { mutationPost } = useUserCreate({ handleCloseModalDataForm });
     const { mutationPatch } = useUserPatch({ handleCloseModalDataForm });
     const { mutationEmailPatch } = useUserEmailPatch({ handleCloseModalDataForm });
     const { mutationDelete } = useUserDelete({ handleCloseConfirmDelete });
@@ -113,9 +113,9 @@ export const IdentidadeProvider = ({ children }: { children: React.ReactNode }) 
         }
 
         const cpfRegex = /^\d{11}$/;
-        const emailRegex = /^[^\s@]{1,64}@[^\s@.]{1,255}\.[^\s@.]{2,63}$/;
-
-        if (!cpfRegex.test(userData.cpf)) {
+        const emailRegex = /^[a-zA-Z0-9._%+-]{1,64}@[a-zA-Z0-9.-]{1,253}\.[a-zA-Z]{2,}$/;
+        const cpf = userData.cpf.trim().replaceAll(/\D/g, '')
+        if (!cpfRegex.test(cpf)) {
             return 'CPF inválido. Certifique-se de que o CPF contém exatamente 11 dígitos numéricos.'
         }
 

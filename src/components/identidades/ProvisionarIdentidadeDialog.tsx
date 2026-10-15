@@ -76,7 +76,7 @@ export function ProvisionarIdentidadeDialog() {
                                 <Input
                                     id="login"
                                     name="login"
-                                    placeholder="123.456.789-10"
+                                    placeholder="12345678910"
                                     value={userDataForm?.cpf || ""}
                                     onChange={(e) => handleChangeUserDataForm(e, "cpf")}
                                     required

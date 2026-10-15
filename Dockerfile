@@ -31,20 +31,17 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 nextjs && \
-    apk add --no-cache gettext
+    adduser --system --uid 1001 nextjs
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=root:root /app/.next/standalone ./
 COPY --from=builder --chown=root:root /app/.next/static ./.next/static
-COPY --from=builder --chown=root:root /app/public ./public
 COPY --chown=root:root entrypoint.sh ./entrypoint.sh
 RUN chmod -R go-w /app && \
     chmod 0555 ./entrypoint.sh && \
     mkdir -p .next/cache && \
-    chown -R nextjs:nodejs .next/cache && \
-    install -o nextjs -g nodejs -m 0644 /dev/null ./public/env.js
+    chown -R nextjs:nodejs .next/cache
 
 USER nextjs
 
