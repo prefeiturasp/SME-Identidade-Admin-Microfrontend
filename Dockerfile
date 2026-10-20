@@ -33,14 +33,16 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
-# Set the correct permission for prerender cache
-RUN mkdir .next && \
-    chown nextjs:nodejs .next
-
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=root:root /app/.next/standalone ./
+COPY --from=builder --chown=root:root /app/.next/static ./.next/static
+COPY --from=builder --chown=root:root /app/public ./public
+COPY --chown=root:root entrypoint.sh ./entrypoint.sh
+RUN chmod -R go-w /app && \
+    chmod 0555 ./entrypoint.sh && \
+    mkdir -p .next/cache && \
+    chown -R nextjs:nodejs .next/cache
 
 USER nextjs
 
@@ -51,4 +53,5 @@ ENV HOSTNAME=0.0.0.0
 
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
+ENTRYPOINT ["./entrypoint.sh"]
 CMD ["node", "server.js"]

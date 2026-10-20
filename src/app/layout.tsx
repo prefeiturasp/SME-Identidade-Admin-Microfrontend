@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
+import Script from "next/script";
+import { ReactQueryProvider } from "@/providers/ReactQueryProvider"
+
 import "@/styles/globals.css";
-import { AppShell } from "@/components/layout/AppShell";
 
 export const metadata: Metadata = {
     title: "SME Identidade - Admin",
     description: "Administração de clients, roles e grupos da plataforma de Identidade.",
 };
+
+const basePath = process.env.NEXT_BASE_PATH ?? "/admin";
+const runtimeEnvPath = `${basePath === "/" ? "" : basePath}/runtime-env.js`;
 
 export default function RootLayout({
     children,
@@ -15,7 +20,8 @@ export default function RootLayout({
     return (
         <html lang="pt-BR">
             <body>
-                <AppShell>{children}</AppShell>
+                <Script src={runtimeEnvPath} strategy="beforeInteractive" />
+                <ReactQueryProvider>{children}</ReactQueryProvider>
             </body>
         </html>
     );

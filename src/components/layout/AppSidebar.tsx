@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { PanelLeft } from "lucide-react";
+import { LogOut, PanelLeft } from "lucide-react";
 
 import {
     Sidebar,
@@ -17,11 +17,14 @@ import {
     useSidebar,
 } from "@/components/ui/sidebar";
 import { navItems } from "@/components/layout/nav-items";
-import { mockSession } from "@/lib/auth/mock-session";
+import { useRealmAtivo } from "@/providers/RealmAtivoProvider";
+import { useSessao } from "@/providers/SessaoProvider";
 
 export function AppSidebar() {
     const pathname = usePathname();
     const { toggleSidebar } = useSidebar();
+    const { realmEfetivo } = useRealmAtivo();
+    const { usuario, sair } = useSessao();
 
     return (
         <Sidebar collapsible="icon">
@@ -77,10 +80,26 @@ export function AppSidebar() {
                             Real ativo
                         </p>
                         <p className="truncate text-sm font-semibold">
-                            {mockSession.usuario.realmAtivo}
+                            {realmEfetivo ?? "Padrão"}
                         </p>
                     </div>
                 </div>
+                {usuario && (
+                    <div className="flex items-center gap-2 px-1 py-1 group-data-[collapsible=icon]:justify-center">
+                        <div className="min-w-0 flex-1 overflow-hidden group-data-[collapsible=icon]:hidden">
+                            <p className="truncate text-sm font-semibold">{usuario.nome}</p>
+                            <p className="truncate text-xs text-sidebar-foreground/70">{usuario.login}</p>
+                        </div>
+                        <button
+                            onClick={sair}
+                            className="shrink-0 rounded-md p-1 text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                            aria-label="Sair"
+                            title="Sair"
+                        >
+                            <LogOut className="h-4 w-4" />
+                        </button>
+                    </div>
+                )}
             </SidebarFooter>
         </Sidebar>
     );

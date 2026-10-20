@@ -1,14 +1,8 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 
-vi.mock("@/components/layout/AppShell", () => ({
-    AppShell: ({ children }: { children: React.ReactNode }) => (
-        <div data-testid="app-shell">{children}</div>
-    ),
-}));
-
 describe("RootLayout", () => {
-    it("envolve o conteúdo com AppShell dentro de html/body", async () => {
+    it("renderiza html/body com o conteúdo, sem o shell das telas protegidas", async () => {
         const { default: RootLayout } = await import("@/app/layout");
 
         const html = renderToStaticMarkup(
@@ -19,7 +13,7 @@ describe("RootLayout", () => {
 
         expect(html).toContain("<html");
         expect(html).toContain('lang="pt-BR"');
-        expect(html).toContain("app-shell");
+        expect(html).not.toContain("SME Identidade</span>");
         expect(html).toContain("conteúdo");
     });
 });
