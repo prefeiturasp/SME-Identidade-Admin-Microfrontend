@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateClient } from "@/lib/client"
 import { QUERY_KEY_LIST_CLIENTS } from "./useClientsList";
 import { TClientPatchRequest } from "@/lib/client/types";
+import { toast } from "@/lib/toast";
 
 export const useClientPatch = ({ handleCloseModalDataForm }: { handleCloseModalDataForm: () => void }) => {
 
@@ -15,11 +16,11 @@ export const useClientPatch = ({ handleCloseModalDataForm }: { handleCloseModalD
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: [QUERY_KEY_LIST_CLIENTS] }).then()
-            alert('Cliente atualizado com sucesso')
             handleCloseModalDataForm()
+            toast.success("Atualizar Cliente", "Cliente atualizado com sucesso!")
         },
         onError: () => {
-            alert('Ocorreu um erro inesperado')
+            toast.error("Atualizar Cliente", "Erro ao atualizar cliente. Por favor, tente novamente.")
         }
     })
     return { mutationPatch }

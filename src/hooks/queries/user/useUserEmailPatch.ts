@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateUserEmail } from "@/lib/user"
 import { UserUpdateEmailRequest } from "@/lib/user/types";
 import { QUERY_KEY_LIST_USERS } from "./useUsersList";
+import { toast } from "@/lib/toast";
 
 export const useUserEmailPatch = ({ handleCloseModalDataForm }: { handleCloseModalDataForm: () => void }) => {
 
@@ -16,11 +17,12 @@ export const useUserEmailPatch = ({ handleCloseModalDataForm }: { handleCloseMod
         onSuccess: (_, variables) => {
             if (variables.needInvalidateQuery) {
                 queryClient.invalidateQueries({ queryKey: [QUERY_KEY_LIST_USERS] }).then()
+                toast.success('Atualizar Email', 'Email atualizado com sucesso')
                 handleCloseModalDataForm();
             }
         },
         onError: () => {
-            alert('Ocorreu um erro inesperado')
+            toast.error('Atualizar Email', 'Ocorreu um erro inesperado ao atualizar o email')
         }
     })
     return { mutationEmailPatch }
