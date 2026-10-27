@@ -7,6 +7,9 @@ import { useClientDelete } from "./useClientDelete";
 import { useClientPatch } from "./useClientPatch";
 import { useClientRotacionar } from "./useClientRotacionar";
 import { QUERY_KEY_LIST_CLIENTS, useClientsList } from "./useClientsList";
+import { toast } from "@/lib/toast";
+
+vi.mock("@/lib/toast", () => ({ toast: { success: vi.fn(), error: vi.fn() } }));
 
 vi.mock("@/lib/client", () => ({ createClient: vi.fn(), disableClient: vi.fn(), getClients: vi.fn(), rotateClientSecret: vi.fn(), updateClient: vi.fn() }));
 
@@ -17,7 +20,7 @@ function wrapper(client = new QueryClient({ defaultOptions: { queries: { retry: 
 }
 
 describe("client mutation hooks", () => {
-  beforeEach(() => { vi.clearAllMocks(); vi.spyOn(window, "alert").mockImplementation(() => {}); });
+  beforeEach(() => { vi.clearAllMocks(); });
   afterEach(() => vi.restoreAllMocks());
 
   it("cria cliente e fecha formulário", async () => {
@@ -27,6 +30,7 @@ describe("client mutation hooks", () => {
     result.current.mutationPost.mutate({ nome: "Portal" } as never);
     await waitFor(() => expect(result.current.mutationPost.isSuccess).toBe(true));
     expect(close).toHaveBeenCalledOnce();
+    expect(toast.success).toHaveBeenCalledWith("Novo Cliente", "Cliente criado com sucesso!");
   });
 
   it("desativa cliente e apresenta sucesso", async () => {
@@ -35,7 +39,7 @@ describe("client mutation hooks", () => {
     const { result } = renderHook(() => useClientDelete({ handleCloseConfirmDelete: close }), { wrapper: wrapper() });
     result.current.mutationDelete.mutate({ id: "c1" });
     await waitFor(() => expect(result.current.mutationDelete.isSuccess).toBe(true));
-    expect(window.alert).toHaveBeenCalledWith("Cliente desabilitado com sucesso");
+    expect(toast.success).toHaveBeenCalledWith("Desabilitar Cliente", "Cliente desabilitado com sucesso!");
     expect(close).toHaveBeenCalledOnce();
   });
 
@@ -45,7 +49,7 @@ describe("client mutation hooks", () => {
     const { result } = renderHook(() => useClientPatch({ handleCloseModalDataForm: close }), { wrapper: wrapper() });
     result.current.mutationPatch.mutate({ id: "c1", nome: "Portal" });
     await waitFor(() => expect(result.current.mutationPatch.isSuccess).toBe(true));
-    expect(window.alert).toHaveBeenCalledWith("Cliente atualizado com sucesso");
+    expect(toast.success).toHaveBeenCalledWith("Atualizar Cliente", "Cliente atualizado com sucesso!");
     expect(close).toHaveBeenCalledOnce();
   });
 
@@ -57,7 +61,29 @@ describe("client mutation hooks", () => {
     await waitFor(() => expect(result.current.mutationRotate.isSuccess).toBe(true));
     expect(open).toHaveBeenCalledWith(true);
     expect(detail).toHaveBeenCalledWith({ clientId: "portal", secret: "segredo" });
+    expect(toast.success).toHaveBeenCalledWith("Rotacionar Secret", "Secret do cliente rotacionado com sucesso!");
     expect(result.current.isLoadingClientRotate).toBe(false);
+  });
+
+  it("notifica falhas ao atualizar, desativar e rotacionar cliente", async () => {
+    vi.mocked(updateClient).mockRejectedValue(new Error("falha"));
+    const patch = renderHook(() => useClientPatch({ handleCloseModalDataForm: vi.fn() }), { wrapper: wrapper() });
+    patch.result.current.mutationPatch.mutate({ id: "c1", nome: "Portal" });
+    await waitFor(() => expect(patch.result.current.mutationPatch.isError).toBe(true));
+
+    vi.mocked(disableClient).mockRejectedValue(new Error("falha"));
+    const deletion = renderHook(() => useClientDelete({ handleCloseConfirmDelete: vi.fn() }), { wrapper: wrapper() });
+    deletion.result.current.mutationDelete.mutate({ id: "c1" });
+    await waitFor(() => expect(deletion.result.current.mutationDelete.isError).toBe(true));
+
+    vi.mocked(rotateClientSecret).mockRejectedValue(new Error("falha"));
+    const rotation = renderHook(() => useClientRotacionar({ setOpenRotateDialog: vi.fn(), setDetailRotatedSecret: vi.fn() }), { wrapper: wrapper() });
+    rotation.result.current.mutationRotate.mutate({ id: "c1", clientId: "portal" });
+    await waitFor(() => expect(rotation.result.current.mutationRotate.isError).toBe(true));
+
+    expect(toast.error).toHaveBeenNthCalledWith(1, "Atualizar Cliente", "Erro ao atualizar cliente. Por favor, tente novamente.");
+    expect(toast.error).toHaveBeenNthCalledWith(2, "Desabilitar Cliente", "Erro ao desabilitar cliente. Por favor, tente novamente.");
+    expect(toast.error).toHaveBeenNthCalledWith(3, "Rotacionar Secret", "Erro ao rotacionar o secret. Por favor, tente novamente.");
   });
 
   it("trata falha nas mutações", async () => {
@@ -65,7 +91,7 @@ describe("client mutation hooks", () => {
     const { result } = renderHook(() => useClientCreate({ handleCloseModalDataForm: vi.fn() }), { wrapper: wrapper() });
     result.current.mutationPost.mutate({} as never);
     await waitFor(() => expect(result.current.mutationPost.isError).toBe(true));
-    expect(window.alert).toHaveBeenCalledWith("Ocorreu um erro inesperado");
+    expect(toast.error).toHaveBeenCalledWith("Novo Cliente", "Erro ao criar cliente. Por favor, tente novamente.");
   });
 });
 
