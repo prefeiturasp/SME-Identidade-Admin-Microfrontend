@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { ReactQueryProvider } from "@/providers/ReactQueryProvider"
+import { ToastContainerGlobal } from "@/components/ToastContainerGlobal";
 
 import "@/styles/globals.css";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
     title: "SME Identidade - Admin",
@@ -21,7 +23,10 @@ export default function RootLayout({
         <html lang="pt-BR">
             <body>
                 <Script src={runtimeEnvPath} strategy="beforeInteractive" />
-                <ReactQueryProvider>{children}</ReactQueryProvider>
+                <ReactQueryProvider>
+                    {children}
+                    <ToastContainerGlobal />
+                </ReactQueryProvider>
             </body>
         </html>
     );

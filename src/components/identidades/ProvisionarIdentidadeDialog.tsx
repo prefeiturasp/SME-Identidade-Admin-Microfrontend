@@ -84,7 +84,7 @@ export function ProvisionarIdentidadeDialog() {
                                 />
                             </div>
                             <div className="col-span-2 flex flex-col gap-1.5">
-                                <Label htmlFor="email">E-mail institucional*</Label>
+                                <Label htmlFor="email">E-mail institucional{userDataForm?.enabled || !userDataForm?.id ? "*" : ""}</Label>
                                 <Input
                                     id="email"
                                     name="email"
@@ -92,7 +92,8 @@ export function ProvisionarIdentidadeDialog() {
                                     placeholder="joaosilva@spassu.com.br"
                                     value={userDataForm?.email || ""}
                                     onChange={(e) => handleChangeUserDataForm(e, "email")}
-                                    required
+                                    required={userDataForm?.enabled}
+                                    disabled={!userDataForm?.enabled && !!userDataForm?.id}
                                 />
                             </div>
                             <div className="col-span-2 flex flex-col gap-1.5">

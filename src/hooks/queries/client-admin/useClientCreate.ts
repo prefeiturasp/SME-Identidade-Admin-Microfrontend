@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createClient } from "@/lib/client"
 import { TClientCreateRequest } from "@/lib/client/types";
 import { QUERY_KEY_LIST_CLIENTS } from "./useClientsList";
+import { toast } from "@/lib/toast";
 
 export const useClientCreate = ({ handleCloseModalDataForm }: { handleCloseModalDataForm: () => void }) => {
 
@@ -16,9 +17,10 @@ export const useClientCreate = ({ handleCloseModalDataForm }: { handleCloseModal
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: [QUERY_KEY_LIST_CLIENTS] }).then()
             handleCloseModalDataForm()
+            toast.success("Novo Cliente", "Cliente criado com sucesso!")
         },
         onError: () => {
-            alert('Ocorreu um erro inesperado')
+            toast.error("Novo Cliente", "Erro ao criar cliente. Por favor, tente novamente.")
         }
     })
     return { mutationPost }

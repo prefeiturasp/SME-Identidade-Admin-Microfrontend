@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { rotateClientSecret } from "@/lib/client"
 import { QUERY_KEY_LIST_CLIENTS } from "./useClientsList";
+import { toast } from "@/lib/toast";
 
 export const useClientRotacionar = ({
     setOpenRotateDialog,
@@ -23,9 +24,10 @@ export const useClientRotacionar = ({
             queryClient.invalidateQueries({ queryKey: [QUERY_KEY_LIST_CLIENTS] }).then()
             setOpenRotateDialog(true)
             setDetailRotatedSecret({ clientId: variables.clientId, secret: data.secret })
+            toast.success("Rotacionar Secret", "Secret do cliente rotacionado com sucesso!")
         },
         onError: () => {
-            alert('Ocorreu um erro inesperado')
+            toast.error("Rotacionar Secret", "Erro ao rotacionar o secret. Por favor, tente novamente.")
         }
     })
 
