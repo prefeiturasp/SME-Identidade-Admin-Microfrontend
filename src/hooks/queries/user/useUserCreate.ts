@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createUser } from "@/lib/user"
 import { UserCreateRequest } from "@/lib/user/types";
 import { QUERY_KEY_LIST_USERS } from "./useUsersList";
+import { toast } from "@/lib/toast";
 
 export const useUserCreate = ({ handleCloseModalDataForm }: { handleCloseModalDataForm: () => void }) => {
 
@@ -16,9 +17,10 @@ export const useUserCreate = ({ handleCloseModalDataForm }: { handleCloseModalDa
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: [QUERY_KEY_LIST_USERS] }).then()
             handleCloseModalDataForm()
+            toast.success("Novo Usuário", "Usuário criado com sucesso!")
         },
         onError: () => {
-            alert('Ocorreu um erro inesperado')
+            toast.error("Novo Usuário", "Erro ao criar usuário. Por favor, tente novamente.")
         }
     })
     return { mutationPost }

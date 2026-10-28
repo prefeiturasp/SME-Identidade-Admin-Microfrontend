@@ -68,7 +68,8 @@ export function TableBodyIdentidade() {
                                         tipo_usuario: identidade.tipo_usuario,
                                         usuario: identidade.username,
                                         rf: identidade.rf,
-                                        id: identidade.id
+                                        id: identidade.id,
+                                        enabled: identidade.enabled
                                     })}
                                 >
                                     <EditSquareIcon className="h-5 w-5" />
@@ -94,6 +95,7 @@ export function TableBodyIdentidade() {
                                         tipo_usuario: identidade.tipo_usuario,
                                         usuario: identidade.username,
                                         rf: identidade.rf,
+                                        enabled: identidade.enabled,
                                         id: identidade.id
                                     })}
                                 >

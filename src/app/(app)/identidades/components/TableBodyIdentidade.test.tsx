@@ -6,8 +6,8 @@ import { TableBodyIdentidade } from "./TableBodyIdentidade";
 const contextMock = vi.hoisted(() => ({
     dataUserList: undefined as
         | {
-              results: Array<Record<string, unknown>>;
-          }
+            results: Array<Record<string, unknown>>;
+        }
         | undefined,
     isLoadingDataUserList: false,
     handleOpenModalDataForm: vi.fn(),
@@ -72,6 +72,7 @@ describe("TableBodyIdentidade", () => {
             usuario: "maria",
             rf: undefined,
             id: "user-1",
+            enabled: true,
         });
 
         fireEvent.click(screen.getByRole("button", { name: "Excluir" }));

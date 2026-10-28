@@ -17,6 +17,7 @@ interface IUserDataForm {
     tipo_usuario: string,
     usuario: string,
     rf: string | null
+    enabled: boolean
 }
 
 interface IIdentidadeContext {
@@ -101,12 +102,12 @@ export const IdentidadeProvider = ({ children }: { children: React.ReactNode }) 
         for (const key in userData) {
             const field = userData[key as keyof IUserDataForm];
 
-            if (key === "rf") continue;
+            if (key === "rf" || key === "enabled") continue;
 
             if (
                 field === null ||
                 field === undefined ||
-                field?.trim() === ''
+                field.toString().trim() === ''
             ) {
                 return `O campo ${key} é obrigatório.`;
             }
